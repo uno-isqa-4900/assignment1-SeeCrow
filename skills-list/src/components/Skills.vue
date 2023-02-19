@@ -7,8 +7,14 @@
       </form>
 
       <ul>
-      <li v-for="(data, index) in skills" :key='index'>{{index}}. {{data.skill}}</li>
-    </ul>
+        <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+          <li
+              v-for="(data, index) in skills" :key='index'>{{data.skill}}
+            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+          </li>
+        </transition-group>
+
+      </ul>
     </div>
   </div>
 
@@ -22,7 +28,6 @@ export default {
       skills:[
         {"skill":"Vue.js"},
         {"skill":"Frontend Developer"},
-        {"skill":"Python"}
       ]
     }
   },
@@ -30,6 +35,9 @@ export default {
     addSkill(){
       this.skills.push({skill: this.skill});
       this.skill = '';
+    },
+    remove(id){
+      this.skills.splice(id,1);
     }
   }
 
